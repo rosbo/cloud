@@ -511,7 +511,7 @@ class CloudContainerBuilder(ContainerBuilder):
         request_dict["projectId"] = self.project_id
         request_dict["images"] = [[image_uri]]
         request_dict["steps"] = []
-        request_dict["timeout"] = "20m"
+        request_dict["timeout"] = "1200s"
         build_args = ["build", "-t", image_uri, "."]
 
         if self.docker_config:
