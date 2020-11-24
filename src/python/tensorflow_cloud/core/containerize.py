@@ -396,7 +396,7 @@ class CloudContainerBuilder(ContainerBuilder):
     """Container builder that uses Google cloud build."""
 
     def get_docker_image(
-        self, max_status_check_attempts=20, delay_between_status_checks=30
+        self, max_status_check_attempts=40, delay_between_status_checks=30
     ):
         """Builds, publishes and returns a Docker image.
 
@@ -430,8 +430,6 @@ class CloudContainerBuilder(ContainerBuilder):
             image_uri, storage_object_name
         )
 
-        print("cloudbuild#create request", request_dict)
-
         try:
             # Call to queue request to build and push Docker image.
             create_response = (
@@ -440,8 +438,6 @@ class CloudContainerBuilder(ContainerBuilder):
                 .create(projectId=self.project_id, body=request_dict)
                 .execute()
             )
-
-            print("cloudbuild#create", create_response)
 
             # `create` returns a long-running `Operation`.
             # https://cloud.google.com/cloud-build/docs/api/reference/rest/v1/operations#Operation  # pylint: disable=line-too-long
